@@ -5,6 +5,7 @@ I was using debian for this experiment and neovim version > 0.8 was not availabl
     sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl
 
 Use
+
     git clone https://github.com/Applooza/neovim/ ~/$USER/.config/nvim/
 
 
