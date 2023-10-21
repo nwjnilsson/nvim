@@ -8,7 +8,7 @@ Also, install [Packer](https://github.com/wbthomason/packer.nvim) and [ripgrep](
 
 Use
 
-    git clone https://github.com/Applooza/neovim/ ~/$USER/.config/nvim/
+    git clone https://github.com/gfx-jonte/neovim/ ~/$USER/.config/nvim/
 
 
 ## Troubleshooting
