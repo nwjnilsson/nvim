@@ -5,6 +5,7 @@ lsp.preset("recommended")
 lsp.ensure_installed({
   'tsserver',
   'clangd',
+  'arduino_language_server',
 })
 
 -- Fix Undefined global 'vim'
