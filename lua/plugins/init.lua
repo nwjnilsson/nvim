@@ -21,7 +21,7 @@ return {
   },
   
   'rebelot/kanagawa.nvim',
- 
+  'nmac427/guess-indent.nvim',
   'ThePrimeagen/harpoon',
   'mbbill/undotree',
   {

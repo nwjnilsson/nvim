@@ -3,9 +3,9 @@ local lsp = require("lsp-zero")
 lsp.preset("recommended")
 
 lsp.ensure_installed({
-  'tsserver',
   'clangd',
-  'arduino_language_server',
+  'pylsp',
+  'yamlls',
 })
 
 -- Fix Undefined global 'vim'
@@ -38,8 +38,13 @@ lsp.set_preferences({
     }
 })
 
+local function allow_format(servers)
+  return function(client) return vim.tbl_contains(servers, client.name) end
+end
+
 lsp.on_attach(function(client, bufnr)
   local opts = {buffer = bufnr, remap = false}
+  lsp.default_keymaps({buffer = bufnr})
 
   vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
   vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
@@ -51,6 +56,13 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
   vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+  vim.keymap.set({'n', 'x'}, 'gq', function()
+    vim.lsp.buf.format({
+      async = false,
+      timeout_ms = 10000,
+      filter = allow_format({'clangd', 'yamlls', 'pylsp'})
+    })
+  end, opts)
 end)
 
 lsp.setup()
