@@ -6,6 +6,7 @@ lsp.ensure_installed({
   'clangd',
   'pylsp',
   'yamlls',
+  'lua_ls',
 })
 
 -- Fix Undefined global 'vim'
