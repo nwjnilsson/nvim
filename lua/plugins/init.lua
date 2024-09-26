@@ -27,6 +27,7 @@ return {
   'rebelot/kanagawa.nvim',
   'nmac427/guess-indent.nvim',
   'ThePrimeagen/harpoon',
+  'rstacruz/vim-closer',
   'mbbill/undotree',
   {
     'VonHeikemen/lsp-zero.nvim',
