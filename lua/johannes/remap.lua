@@ -39,6 +39,10 @@ vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
+-- add a line as padding below/above line without moving cursor
+vim.keymap.set("n", "<leader>oj", ":call append('.', '')<CR>")
+vim.keymap.set("n", "<leader>ok", ":call append(line('.')-1, '')<CR>")
+
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
