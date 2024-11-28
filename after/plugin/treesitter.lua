@@ -1,4 +1,4 @@
-require'nvim-treesitter.configs'.setup {
+require 'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
   ensure_installed = { "vimdoc", "c", "cpp", "lua", "rust" },
 
@@ -21,3 +21,6 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
+vim.treesitter.language.register('cpp', 'ixx')
+vim.treesitter.language.register('cpp', 'mpp')
+vim.treesitter.language.register('cpp', 'cppm')
