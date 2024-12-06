@@ -7,6 +7,7 @@ lsp.ensure_installed({
   'pylsp',
   'yamlls',
   'lua_ls',
+  'glsl_analyzer',
 })
 
 -- Fix Undefined global 'vim'
@@ -68,25 +69,27 @@ end)
 
 
 
-local util = require 'lspconfig.util'
+--local util = require 'lspconfig.util'
+local lspconf = require('lspconfig')
 require('mason-lspconfig').setup({
   handlers = {
     -- this first function is the "default handler"
     -- it applies to every language server without a "custom handler"
     function(server_name)
-      require('lspconfig')[server_name].setup({})
+      lspconf[server_name].setup({})
     end,
 
     clangd = function()
       vim.cmd [[ autocmd BufRead,BufNewFile *.mpp set filetype=mpp ]]
       vim.cmd [[ autocmd BufRead,BufNewFile *.ixx set filetype=ixx ]]
       vim.cmd [[ autocmd BufRead,BufNewFile *.cppm set filetype=cppm ]]
-      require('lspconfig').clangd.setup({
+      lspconf.clangd.setup({
         filetypes = { "h", "hpp", "c", "cpp", "cxx", "cppm", "mpp", "ixx" },
       })
     end,
   }
 })
+
 lsp.setup()
 
 vim.diagnostic.config({

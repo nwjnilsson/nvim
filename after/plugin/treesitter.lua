@@ -1,6 +1,6 @@
 require 'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
-  ensure_installed = { "vimdoc", "c", "cpp", "lua", "rust" },
+  ensure_installed = { "vimdoc", "c", "cpp", "lua", "python", "glsl" },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -21,6 +21,9 @@ require 'nvim-treesitter.configs'.setup {
   },
 }
 
-vim.treesitter.language.register('cpp', 'ixx')
-vim.treesitter.language.register('cpp', 'mpp')
-vim.treesitter.language.register('cpp', 'cppm')
+vim.filetype.add({
+  extension = {
+    frag = 'glsl',
+    vert = 'glsl'
+  }
+})
