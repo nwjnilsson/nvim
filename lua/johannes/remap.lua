@@ -9,13 +9,14 @@ vim.keymap.set("n", "J", "mzJ`z")
 
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
+
 -- Find next/previous pattern and center
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
 -- Move to beginning/end of line
-vim.keymap.set("n", "H", "_")
-vim.keymap.set("n", "L", "$")
+vim.keymap.set({ "n", "v" }, "H", "_")
+vim.keymap.set({ "n", "v" }, "L", "$")
 
 -- Switch window
 vim.keymap.set("n", "<A-l>", "<C-w>l")
@@ -26,12 +27,9 @@ vim.keymap.set("n", "<A-h>", "<C-w>h")
 -- Jump back to previous buffer
 vim.keymap.set("n", "<leader>ep", ":e#<CR>")
 
-vim.keymap.set("n", "<leader>vwm", function()
-    require("vim-with-me").StartVimWithMe()
-end)
-vim.keymap.set("n", "<leader>svwm", function()
-    require("vim-with-me").StopVimWithMe()
-end)
+-- Cycle tabs
+vim.keymap.set("n", "<PageDown>", "gt")
+vim.keymap.set("n", "<PageUp>", "gT")
 
 -- greatest remap ever
 vim.keymap.set("x", "<leader>p", [["_dP]])
