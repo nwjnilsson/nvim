@@ -6,19 +6,10 @@ return {
     dependencies = { { 'nvim-lua/plenary.nvim' } }
   },
 
-
   {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' }
   },
-
-  --  use {
-  --	 'nvim-treesitter/nvim-treesitter',
-  --	  build = function()
-  --		  local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-  --		  ts_update()
-  --	  end,
-  --  }
 
   {
     'nvim-treesitter/nvim-treesitter',
@@ -36,7 +27,7 @@ return {
     dependencies = {
       -- LSP Support
       { 'neovim/nvim-lspconfig' }, -- Required
-      {                          -- Optional
+      {                            -- Optional
         'williamboman/mason.nvim',
         build = function()
           pcall(vim.api.nvim_command, 'MasonUpdate')
@@ -45,9 +36,9 @@ return {
       { 'williamboman/mason-lspconfig.nvim' }, -- Optional
 
       -- Autocompletion
-      { 'hrsh7th/nvim-cmp' },   -- Required
+      { 'hrsh7th/nvim-cmp' },     -- Required
       { 'hrsh7th/cmp-nvim-lsp' }, -- Required
-      { 'L3MON4D3/LuaSnip' },   -- Required
+      { 'L3MON4D3/LuaSnip' },     -- Required
     },
   }
 }

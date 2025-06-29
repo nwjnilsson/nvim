@@ -24,6 +24,11 @@ vim.keymap.set("n", "<A-k>", "<C-w>k")
 vim.keymap.set("n", "<A-j>", "<C-w>j")
 vim.keymap.set("n", "<A-h>", "<C-w>h")
 
+-- Open terminal
+vim.keymap.set("n", "<C-t>", "<cmd>terminal<CR>i")
+-- Leave terminal
+vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true })
+
 -- Jump back to previous buffer
 vim.keymap.set("n", "<leader>ep", ":e#<CR>")
 
@@ -40,7 +45,7 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 
--- This is going to get me cancelled
+-- I might do this on regular keyboards
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
 vim.keymap.set("n", "Q", "<nop>")

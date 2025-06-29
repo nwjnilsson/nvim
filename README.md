@@ -6,4 +6,4 @@
 
 Use
 
-    git clone https://github.com/gfx-jonte/neovim/ $HOME/.config/nvim/
+    git clone https://github.com/nwjnilsson/neovim/ $HOME/.config/nvim/
