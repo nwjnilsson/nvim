@@ -85,6 +85,7 @@ require('mason-lspconfig').setup({
       vim.cmd [[ autocmd BufRead,BufNewFile *.cppm set filetype=cppm ]]
       lspconf.clangd.setup({
         filetypes = { "h", "hpp", "c", "cpp", "cxx", "cppm", "mpp", "ixx" },
+        cmd = {"clangd", "--header-insertion=never" }
       })
     end,
   }

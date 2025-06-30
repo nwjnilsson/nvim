@@ -21,6 +21,7 @@ return {
   'rstacruz/vim-closer',
   'mbbill/undotree',
   'tpope/vim-abolish',
+  'tpope/vim-surround',
   {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v2.x',
