@@ -19,13 +19,13 @@ vim.keymap.set({ "n", "v" }, "H", "_")
 vim.keymap.set({ "n", "v" }, "L", "$")
 
 -- Switch window
-vim.keymap.set("n", "<A-l>", "<C-w>l")
-vim.keymap.set("n", "<A-k>", "<C-w>k")
-vim.keymap.set("n", "<A-j>", "<C-w>j")
-vim.keymap.set("n", "<A-h>", "<C-w>h")
+vim.keymap.set("n", "<A-L>", "<C-w>l")
+vim.keymap.set("n", "<A-K>", "<C-w>k")
+vim.keymap.set("n", "<A-J>", "<C-w>j")
+vim.keymap.set("n", "<A-H>", "<C-w>h")
 
 -- Open terminal
-vim.keymap.set("n", "<C-t>", "<cmd>terminal<CR>i")
+vim.keymap.set("n", "<A-t>", "<cmd>terminal<CR>i")
 -- Leave terminal
 vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true })
 

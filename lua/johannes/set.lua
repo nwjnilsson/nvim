@@ -11,10 +11,11 @@ vim.opt.wrap = false
 
 vim.opt.swapfile = false
 vim.opt.backup = false
-if vim.fn.has('win32') then
-        vim.opt.undodir = os.getenv("UserProfile") .. "/.vim/undodir"
-else
+
+if vim.loop.os_uname().sysname == 'Linux' then
         vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+else -- assume Windows
+        vim.opt.undodir = os.getenv("UserProfile") .. "/.vim/undodir"
 end
 vim.opt.undofile = true
 
@@ -31,7 +32,7 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
 
-if vim.fn.has('win32') then
+if vim.loop.os_uname().sysname == 'Windows' then
         vim.o.shell        = "powershell"
         vim.o.shellcmdflag =
         "-NoLogo -NonInteractive -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();$PSDefaultParameterValues[''Out-File:Encoding'']=''utf8'';$PSStyle.OutputRendering=''plaintext'';Remove-Alias -Force -ErrorAction SilentlyContinue tee;"
