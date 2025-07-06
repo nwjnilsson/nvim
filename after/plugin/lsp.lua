@@ -26,6 +26,19 @@ end
 
 lsp.on_attach(function(client, bufnr)
   local opts = { buffer = bufnr, remap = false }
+  local format = function()
+    -- nil_ls can't format, use alejandra
+    if client.name == 'nil_ls' then
+      vim.cmd '%!alejandra -qq'
+    else
+      vim.lsp.buf.format({
+        async = false,
+        timeout_ms = 10000,
+        filter = allow_format({ 'clangd', 'yamlls', 'pylsp', 'lua_ls' })
+      })
+    end
+  end
+
   lsp.default_keymaps({ buffer = bufnr })
 
   vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
@@ -38,13 +51,8 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
   vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-  vim.keymap.set({ 'n', 'x' }, 'gq', function()
-    vim.lsp.buf.format({
-      async = false,
-      timeout_ms = 10000,
-      filter = allow_format({ 'clangd', 'yamlls', 'pylsp', 'nil', 'lua_ls' })
-    })
-  end, opts)
+  --vim.keymap.set({ 'n', 'x' }, 'gq', format, opts)
+  vim.keymap.set({ 'n', 'x' }, '<leader>f', format, opts)
 end)
 
 
@@ -106,8 +114,4 @@ cmp.setup({
     { name = 'luasnip' },
   },
   mapping = cmp_mappings,
-  -- window = {
-  --   completion = cmp.config.window.bordered(),
-  --   documentation = cmp.config.window.bordered(),
-  -- }
 })
