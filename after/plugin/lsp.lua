@@ -10,26 +10,6 @@ lsp.ensure_installed({
   'glsl_analyzer',
 })
 
--- Fix Undefined global 'vim'
-lsp.nvim_workspace()
-
-
-local cmp = require('cmp')
-local cmp_select = { behavior = cmp.SelectBehavior.Select }
-local cmp_mappings = lsp.defaults.cmp_mappings({
-  ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-  ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-  ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-  ["<C-Space>"] = cmp.mapping.complete(),
-})
-
-cmp_mappings['<Tab>'] = nil
-cmp_mappings['<S-Tab>'] = nil
-
-lsp.setup_nvim_cmp({
-  mapping = cmp_mappings
-})
-
 lsp.set_preferences({
   suggest_lsp_servers = false,
   sign_icons = {
@@ -62,7 +42,7 @@ lsp.on_attach(function(client, bufnr)
     vim.lsp.buf.format({
       async = false,
       timeout_ms = 10000,
-      filter = allow_format({ 'clangd', 'yamlls', 'pylsp' })
+      filter = allow_format({ 'clangd', 'yamlls', 'pylsp', 'nil', 'lua_ls' })
     })
   end, opts)
 end)
@@ -71,28 +51,59 @@ end)
 
 --local util = require 'lspconfig.util'
 local lspconf = require('lspconfig')
+
+lspconf.nil_ls.setup({})
+lspconf.yamlls.setup({})
+lspconf.pylsp.setup({})
+lspconf.clangd.setup({})
+lspconf.lua_ls.setup({
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { 'vim' }
+      }
+    }
+  }
+})
+
 require('mason-lspconfig').setup({
   handlers = {
-    -- this first function is the "default handler"
-    -- it applies to every language server without a "custom handler"
-    function(server_name)
-      lspconf[server_name].setup({})
-    end,
-
     clangd = function()
       vim.cmd [[ autocmd BufRead,BufNewFile *.mpp set filetype=mpp ]]
       vim.cmd [[ autocmd BufRead,BufNewFile *.ixx set filetype=ixx ]]
       vim.cmd [[ autocmd BufRead,BufNewFile *.cppm set filetype=cppm ]]
       lspconf.clangd.setup({
         filetypes = { "h", "hpp", "c", "cpp", "cxx", "cppm", "mpp", "ixx" },
-        cmd = {"clangd", "--header-insertion=never" }
+        cmd = { "clangd", "--header-insertion=never" }
       })
     end,
   }
 })
 
-lsp.setup()
+lsp.setup({})
 
 vim.diagnostic.config({
-  virtual_text = true
+  virtual_text = true,
+  -- float = {
+  --   border = 'rounded',
+  -- },
+})
+
+local cmp = require('cmp')
+local cmp_select = { behavior = cmp.SelectBehavior.Select }
+local cmp_mappings = lsp.defaults.cmp_mappings({
+  ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+  ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+  ['<C-y>'] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+  ['<C-Space>'] = cmp.mapping.complete(),
+})
+cmp_mappings['<Tab>'] = nil
+cmp_mappings['<S-Tab>'] = nil
+
+cmp.setup({
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
+  },
+  mapping = cmp_mappings,
 })
