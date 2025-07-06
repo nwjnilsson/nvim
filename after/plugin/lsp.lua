@@ -84,9 +84,9 @@ lsp.setup({})
 
 vim.diagnostic.config({
   virtual_text = true,
-  -- float = {
-  --   border = 'rounded',
-  -- },
+  --float = {
+  --  border = 'single',
+  --},
 })
 
 local cmp = require('cmp')
@@ -106,4 +106,8 @@ cmp.setup({
     { name = 'luasnip' },
   },
   mapping = cmp_mappings,
+  -- window = {
+  --   completion = cmp.config.window.bordered(),
+  --   documentation = cmp.config.window.bordered(),
+  -- }
 })
