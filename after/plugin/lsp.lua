@@ -2,14 +2,6 @@ local lsp = require("lsp-zero")
 
 lsp.preset("recommended")
 
-lsp.ensure_installed({
-  'clangd',
-  'pylsp',
-  'yamlls',
-  'lua_ls',
-  'glsl_analyzer',
-})
-
 lsp.set_preferences({
   suggest_lsp_servers = false,
   sign_icons = {
@@ -53,6 +45,7 @@ end)
 local lspconf = require('lspconfig')
 
 lspconf.nil_ls.setup({})
+lspconf.glsl_analyzer.setup({})
 lspconf.yamlls.setup({})
 lspconf.pylsp.setup({})
 lspconf.clangd.setup({})
