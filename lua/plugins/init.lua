@@ -23,6 +23,11 @@ return {
   'tpope/vim-abolish',
   'tpope/vim-surround',
   {
+    'OXY2DEV/markview.nvim',
+    lazy = false,
+    priority = 49,
+  },
+  {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v4.x',
     dependencies = {

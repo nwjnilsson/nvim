@@ -46,6 +46,7 @@ local lspconf = require('lspconfig')
 
 lspconf.nil_ls.setup({})
 lspconf.glsl_analyzer.setup({})
+lspconf.bashls.setup({})
 lspconf.yamlls.setup({})
 lspconf.pylsp.setup({})
 lspconf.clangd.setup({})
