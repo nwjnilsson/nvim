@@ -1,15 +1,14 @@
 local lsp = require("lsp-zero")
 
-lsp.preset("recommended")
-
-lsp.set_preferences({
-  suggest_lsp_servers = false,
-  sign_icons = {
-    error = 'E',
-    warn = 'W',
-    hint = 'H',
-    info = 'I'
-  }
+vim.diagnostic.config({
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = '✘',
+      [vim.diagnostic.severity.WARN] = '▲',
+      [vim.diagnostic.severity.HINT] = '⚑',
+      [vim.diagnostic.severity.INFO] = '»',
+    },
+  },
 })
 
 lsp.on_attach(function(client, bufnr)
@@ -42,15 +41,30 @@ end)
 
 
 --local util = require 'lspconfig.util'
-local lspconf = require('lspconfig')
+require('mason').setup({})
+require('mason-lspconfig').setup({
+  ensure_installed = { 'clangd' },
+  handlers = {
+    clangd = function()
+      vim.cmd [[ autocmd BufRead,BufNewFile *.mpp set filetype=mpp ]]
+      vim.cmd [[ autocmd BufRead,BufNewFile *.ixx set filetype=ixx ]]
+      vim.cmd [[ autocmd BufRead,BufNewFile *.cppm set filetype=cppm ]]
+      vim.lsp.config.clangd.setup({
+        filetypes = { "h", "hpp", "c", "cpp", "cxx", "cppm", "mpp", "ixx" },
+        cmd = { "clangd", "--header-insertion=never" }
+      })
+    end,
+  }
+})
 
-lspconf.nil_ls.setup({})
-lspconf.glsl_analyzer.setup({})
-lspconf.bashls.setup({})
-lspconf.yamlls.setup({})
-lspconf.pylsp.setup({})
-lspconf.clangd.setup({})
-lspconf.lua_ls.setup({
+-- lspconf.nil_ls.setup({})
+-- lspconf.glsl_analyzer.setup({})
+-- lspconf.bashls.setup({})
+-- lspconf.yamlls.setup({})
+-- lspconf.pylsp.setup({})
+vim.lsp.enable('clangd')
+vim.lsp.enable('lua_ls')
+vim.lsp.config('lua_ls', {
   settings = {
     Lua = {
       diagnostics = {
@@ -60,19 +74,7 @@ lspconf.lua_ls.setup({
   }
 })
 
-require('mason-lspconfig').setup({
-  handlers = {
-    clangd = function()
-      vim.cmd [[ autocmd BufRead,BufNewFile *.mpp set filetype=mpp ]]
-      vim.cmd [[ autocmd BufRead,BufNewFile *.ixx set filetype=ixx ]]
-      vim.cmd [[ autocmd BufRead,BufNewFile *.cppm set filetype=cppm ]]
-      lspconf.clangd.setup({
-        filetypes = { "h", "hpp", "c", "cpp", "cxx", "cppm", "mpp", "ixx" },
-        cmd = { "clangd", "--header-insertion=never" }
-      })
-    end,
-  }
-})
+
 
 lsp.setup({})
 
@@ -85,7 +87,7 @@ vim.diagnostic.config({
 
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
-local cmp_mappings = lsp.defaults.cmp_mappings({
+local cmp_mappings = cmp.mapping.preset.insert({
   ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
   ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
   ['<C-y>'] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
