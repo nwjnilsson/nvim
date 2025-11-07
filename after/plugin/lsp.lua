@@ -40,10 +40,9 @@ end)
 
 
 
---local util = require 'lspconfig.util'
 require('mason').setup({})
 require('mason-lspconfig').setup({
-  ensure_installed = { 'clangd' },
+  -- ensure_installed = { 'clangd' },
   handlers = {
     clangd = function()
       vim.cmd [[ autocmd BufRead,BufNewFile *.mpp set filetype=mpp ]]
@@ -57,11 +56,11 @@ require('mason-lspconfig').setup({
   }
 })
 
--- lspconf.nil_ls.setup({})
--- lspconf.glsl_analyzer.setup({})
--- lspconf.bashls.setup({})
--- lspconf.yamlls.setup({})
--- lspconf.pylsp.setup({})
+vim.lsp.enable('nil_ls')
+vim.lsp.enable('glsl_analyzer')
+vim.lsp.enable('bashls')
+vim.lsp.enable('yamlls')
+vim.lsp.enable('pylsp')
 vim.lsp.enable('clangd')
 vim.lsp.enable('lua_ls')
 vim.lsp.config('lua_ls', {
