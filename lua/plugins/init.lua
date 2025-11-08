@@ -17,6 +17,13 @@ return {
   },
   'rebelot/kanagawa.nvim',
   'nmac427/guess-indent.nvim',
+  {
+    'mfussenegger/nvim-dap',
+    dependencies = {
+      "theHamsta/nvim-dap-virtual-text"
+    },
+    event = 'UIEnter',
+  },
   'ThePrimeagen/harpoon',
   'rstacruz/vim-closer',
   'mbbill/undotree',

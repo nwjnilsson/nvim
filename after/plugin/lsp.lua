@@ -42,18 +42,12 @@ end)
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
-  -- ensure_installed = { 'clangd' },
-  handlers = {
-    clangd = function()
-      vim.cmd [[ autocmd BufRead,BufNewFile *.mpp set filetype=mpp ]]
-      vim.cmd [[ autocmd BufRead,BufNewFile *.ixx set filetype=ixx ]]
-      vim.cmd [[ autocmd BufRead,BufNewFile *.cppm set filetype=cppm ]]
-      vim.lsp.config.clangd.setup({
-        filetypes = { "h", "hpp", "c", "cpp", "cxx", "cppm", "mpp", "ixx" },
-        cmd = { "clangd", "--header-insertion=never" }
-      })
-    end,
-  }
+  -- ensure_installed = {
+  --   'clangd',
+  --   'pylsp',
+  --   'yamlls',
+  --   'lua_ls',
+  -- },
 })
 
 vim.lsp.enable('nil_ls')
@@ -62,10 +56,24 @@ vim.lsp.enable('bashls')
 vim.lsp.enable('yamlls')
 vim.lsp.enable('pylsp')
 vim.lsp.enable('clangd')
+vim.lsp.config('clangd', {
+  filetypes = { "h", "hpp", "c", "cpp", "cxx", "cppm", "mpp", "ixx" },
+  cmd = { "clangd", "--header-insertion=never" }
+})
+-- vim.cmd [[ autocmd BufRead,BufNewFile *.mpp set filetype=mpp ]]
+-- vim.cmd [[ autocmd BufRead,BufNewFile *.ixx set filetype=ixx ]]
+-- vim.cmd [[ autocmd BufRead,BufNewFile *.cppm set filetype=cppm ]]
 vim.lsp.enable('lua_ls')
 vim.lsp.config('lua_ls', {
   settings = {
     Lua = {
+      format = {
+        enable = true,
+        defaultConfig = {
+          indent_style = "space",
+          indent_size = "4"
+        }
+      },
       diagnostics = {
         globals = { 'vim' }
       }
